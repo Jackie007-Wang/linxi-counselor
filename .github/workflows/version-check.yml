@@ -1,0 +1,68 @@
+name: version-check
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  bump:
+    name: 检查版本号是否升位
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 判断是否改动了内容文件
+        id: changed
+        run: |
+          BASE="${{ github.event.pull_request.base.sha }}"
+          HEAD="${{ github.event.pull_request.head.sha }}"
+          if git diff --name-only "$BASE" "$HEAD" | grep -Eq '^(agents/|skills/)'; then
+            echo "touched=true" >> "$GITHUB_OUTPUT"
+            echo "检测到 agents/ 或 skills/ 改动"
+          else
+            echo "touched=false" >> "$GITHUB_OUTPUT"
+            echo "未改动内容文件，跳过版本号检查"
+          fi
+
+      - name: 比对版本号
+        if: steps.changed.outputs.touched == 'true'
+        run: |
+          BASE="${{ github.event.pull_request.base.sha }}"
+          HEAD="${{ github.event.pull_request.head.sha }}"
+          python3 - "$BASE" "$HEAD" <<'PY'
+          import json, subprocess, sys
+
+          base_sha, head_sha = sys.argv[1], sys.argv[2]
+          path = ".codebuddy-plugin/plugin.json"
+
+          def version_at(sha):
+              raw = subprocess.check_output(["git", "show", f"{sha}:{path}"])
+              return json.loads(raw.decode("utf-8"))["version"]
+
+          def parse(v):
+              return tuple(int(x) for x in v.split("."))
+
+          try:
+              old = version_at(base_sha)
+          except subprocess.CalledProcessError:
+              print(f"{path} 在 base 分支不存在，跳过检查")
+              sys.exit(0)
+
+          new = version_at(head_sha)
+          print(f"base: {old}  →  head: {new}")
+
+          if parse(new) <= parse(old):
+              print(
+                  f"::error file={path}::改动了 agents/ 或 skills/，"
+                  f"但版本号没有升位（{old} → {new}）。"
+                  "请按 CONTRIBUTING.md 的语义化版本规则更新 version。"
+              )
+              sys.exit(1)
+
+          if parse(new)[0] != parse(old)[0]:
+              print(f"::notice::检测到 major 版本升级（{old} → {new}），请确认 PR 描述已说明不兼容改动。")
+
+          print("版本号检查通过")
+          PY

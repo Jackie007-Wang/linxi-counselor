@@ -1,11 +1,12 @@
 {
   "name": "linxi-counselor",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Licensed psychological counselor providing trust-evolving therapeutic support from professional listening to deep trauma processing with crisis intervention",
   "author": {
     "name": "NOHN-AI"
   },
   "agents": ["./agents/linxi-counselor.md"],
+  "skills": ["./skills/linxi-knowledge"],
 
   "expertType": "agent",
   "agentName": "linxi-counselor",

@@ -1,0 +1,33 @@
+# ---- 操作系统 ----
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# ---- 编辑器 / IDE ----
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ---- Python（README 中的脚本工具）----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# ---- 打包与构建产物 ----
+dist/
+build/
+out/
+*.zip
+!.gitkeep
+
+# ---- 本地环境与日志 ----
+.env
+.env.*
+*.log
+
+# ---- WorkBuddy 本地数据（会话记忆、缓存等，不随仓库共享）----
+.workbuddy/

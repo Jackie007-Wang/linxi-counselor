@@ -1,0 +1,28 @@
+# 统一换行符：仓库内一律 LF，检出时按平台自动转换
+* text=auto eol=lf
+
+# 文本文件显式声明，避免跨平台 diff 噪音
+*.md      text eol=lf
+*.json    text eol=lf
+*.yml     text eol=lf
+*.yaml    text eol=lf
+*.py      text eol=lf
+
+# Windows 脚本保持 CRLF
+*.bat     text eol=crlf
+*.cmd     text eol=crlf
+*.ps1     text eol=crlf
+
+# 二进制文件：禁止文本转换和行内 diff
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.webp    binary
+*.ico     binary
+*.zip     binary
+*.docx    binary
+*.pptx    binary
+*.pdf     binary
+
+# Markdown 使用更易读的 diff
+*.md      diff=markdown

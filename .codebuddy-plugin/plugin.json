@@ -1,0 +1,42 @@
+{
+  "name": "linxi-counselor",
+  "version": "1.0.0",
+  "description": "Licensed psychological counselor providing trust-evolving therapeutic support from professional listening to deep trauma processing with crisis intervention",
+  "author": {
+    "name": "NOHN-AI"
+  },
+  "agents": ["./agents/linxi-counselor.md"],
+
+  "expertType": "agent",
+  "agentName": "linxi-counselor",
+
+  "displayName": {
+    "en": "Lin Xi",
+    "zh": "林溪"
+  },
+  "profession": {
+    "en": "Psychological Counselor",
+    "zh": "心理咨询师"
+  },
+  "displayDescription": {
+    "en": "Licensed counselor with 10 years of clinical experience, specializing in CBT, humanistic therapy and trauma-focused treatment, providing trust-evolving psychological support",
+    "zh": "国家二级心理咨询师，十年临床咨询经验，擅长认知行为治疗与创伤聚焦治疗，提供信任递进式心理咨询服务"
+  },
+  "avatar": "avatars/expert.png",
+  "categoryId": "12-IndustryConsultant",
+  "defaultInitPrompt": {
+    "zh": "我最近情绪不太好，能和你聊聊吗？",
+    "en": "I've been feeling down lately, can I talk to you?"
+  },
+  "plugin": "linxi-counselor",
+  "tags": [
+    { "en": "Emotional Support", "zh": "情绪支持" },
+    { "en": "CBT Therapy", "zh": "认知行为治疗" },
+    { "en": "Trauma Healing", "zh": "创伤疗愈" }
+  ],
+  "quickPrompts": [
+    { "en": "I've been feeling down lately, can I talk to you?", "zh": "我最近情绪不太好，能和你聊聊吗？" },
+    { "en": "Help me understand my anxiety patterns", "zh": "帮我理解我的焦虑模式" },
+    { "en": "I want to explore my core beliefs", "zh": "我想探索我的核心信念" }
+  ]
+}
